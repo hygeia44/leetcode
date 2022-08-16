@@ -1,0 +1,13 @@
+class Solution:
+    def isPalindrome(self, s: str) -> bool:
+        temp= []
+        for cha in s.lower():
+            if ( ord('a') <= ord(cha) <= ord('z')  or 
+                    ord('0') <= ord(cha) <= ord('9')  )  :
+                 temp.append(cha)
+        
+        for i in range((len(temp))//2) :
+            if temp[i] != temp [len(temp)-1-i]:
+                    return False
+        return True
+                    
