@@ -24,3 +24,16 @@ class Solution:
                 cache[(r,l)] = dfs(r-1, l, cache) + dfs(r, l-1, cache)
             return cache[(r,l)]
         return dfs(m-1,n-1,cache)
+
+
+class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:
+        hm = [[0]* n  for i in range(m)]
+        hm [0][:] = [1]*n
+        for i in range(m):
+            hm[i][0]=1
+        
+        for i in range(1, m):
+            for j in range(1, n):
+                hm[i][j]= hm[i-1][j]+hm[i][j-1]
+        return hm[m-1][n-1]
