@@ -1,0 +1,26 @@
+class Solution:
+#     def uniquePaths(self, m: int, n: int) -> int:
+#         dp= [[0]*n for _ in range(m)]
+#         dp[m-1][n-1]=1
+#         for r in range(m-1, -1, -1):
+#             for l in range(n-1, -1, -1):
+#                 if r == m-1 or l ==n-1:
+                    
+#                     dp[r][l]=1
+#                 else:
+#                     dp[r][l]= dp[r+1][l]+dp[r][l+1]
+                    
+#         return dp[0][0]
+    
+    #  recursive
+    def uniquePaths(self, m: int, n: int) -> int:
+        cache = {}
+        def dfs(r, l, cache):
+            if r == 0 or l ==0:
+                cache[(r,l)]=1
+            if (r, l) in cache:
+                return cache[(r,l)]
+            else: 
+                cache[(r,l)] = dfs(r-1, l, cache) + dfs(r, l-1, cache)
+            return cache[(r,l)]
+        return dfs(m-1,n-1,cache)
