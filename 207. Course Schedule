@@ -1,0 +1,25 @@
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        # a dictionary save pre: course,  list of course with the numer of prerequest
+#         dequeue (crs)  if indgree is 0:  popleft and reduce list[crs]-1:
+        hs = defaultdict(list)
+        indegree = [0]*numCourses
+        
+        for  crs,pre   in prerequisites:
+            hs[pre].append(crs)
+            indegree[crs]+=1
+        
+        q= deque()
+        for ind, pre in enumerate(indegree):
+            if pre==0:
+                q.append(ind)
+        cnt = 0
+        while q:
+            cur = q.popleft()
+            cnt+=1
+            for child in hs[cur]:
+                indegree[child]-=1
+                if indegree[child]==0:
+                    q.append(child)
+        return cnt == numCourses
+            
