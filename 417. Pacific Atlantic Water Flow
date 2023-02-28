@@ -1,0 +1,31 @@
+class Solution:
+    def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
+        pac, alt = set(), set()
+        m=len(heights)
+        n= len(heights[0])
+        
+        def dfs(r, c, visit):
+            visit.add((r,c))
+            direction = [(-1, 0), (1,0), (0, -1), (0,1)]
+            for i, j in direction:
+                row = r + i
+                col = c + j
+                if 0<= row< m and 0<=col<n and (row, col) not in visit and heights[row][col]>=heights[r][c]:
+                    visit.add((row, col))
+                    dfs(row, col, visit)
+            return
+        
+        for a in range(n):
+            dfs(0, a, pac ) #first row and last row
+            dfs(m-1, a, alt)
+        for b in range(m): #first colume and last colume
+            dfs(b, 0, pac)
+            dfs(b, n-1, alt)
+        
+        # return pac.intersection(alt)
+        res = []
+        for i in range(m):
+            for j in range(n):
+                if (i, j) in pac and (i,j) in alt:
+                    res.append((i,j))
+        return res
