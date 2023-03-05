@@ -29,3 +29,33 @@ class Solution:
                 if (i, j) in pac and (i,j) in alt:
                     res.append((i,j))
         return res
+
+class Solution:
+    def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
+        rows = len(heights)
+        cols = len(heights[0])
+        pac =set()
+        alt = set ()
+        dirc = ((1,0), (-1,0), (0,1), (0,-1))
+        res=[]
+        def dfs(mat, i, j, visited):
+            if (i,j) in visited:
+                return
+            visited.add((i,j))
+            for x,y in dirc:
+                newi, newj = i+x, j+y 
+                if 0<=newi<rows and 0<=newj<cols and mat[newi][newj]>= mat[i][j]:
+                    dfs(mat, newi, newj, visited)
+
+        for i in range(rows):
+            dfs(heights, i, 0, alt)
+            dfs(heights, i, cols-1, pac)
+        for j in range(cols):
+            dfs(heights, 0, j, alt)
+            dfs(heights, rows-1, j, pac)
+
+        for i,j in alt:
+            if (i,j) in pac:
+                res.append([i,j])
+        return res
+        
