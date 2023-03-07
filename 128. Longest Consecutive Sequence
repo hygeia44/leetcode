@@ -1,3 +1,25 @@
+class Solution:
+    def longestConsecutive(self, nums: List[int]) -> int:
+        numset = set(nums)
+        maxres=0
+        for n in nums:
+            if n not in numset:
+                continue
+            numset.remove(n)
+            res=1
+            nleft=n-1    
+            while nleft in numset:
+                numset.remove(nleft)
+                res+=1
+                nleft-=1
+            nright=n+1
+            while nright in numset:
+                numset.remove(nright)
+                res+=1
+                nright +=1
+            maxres=max(maxres, res)
+        return maxres
+
 
 
 
