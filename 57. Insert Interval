@@ -1,0 +1,38 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+###########v2
+class Solution:
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        ns, ne = newInterval[0], newInterval[1]
+        res = []
+        
+        # if ne < intervals[0][0]:
+        #     return [newIntervals, intervals]
+        # if ns > intervals[-1][1]:
+        #     return [intervals, newIntervals]
+
+         
+        for i in range(len(intervals)):
+            a, b = intervals[i]
+        
+            if ns > b :
+                res.append([a,b])
+            elif ne < a:
+                res.append([ns, ne])
+                return  res + intervals[i:]
+ 
+            else: 
+                ns, ne = min(a, ns), max(b, ne)
+        res.append([ns, ne])   
+        return res
