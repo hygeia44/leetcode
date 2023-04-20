@@ -1,10 +1,18 @@
-
-
-
-
-
-
-
+class Solution:
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        left = []
+        right = []
+        [ns, ne] = newInterval
+        for [s, e] in intervals:
+            if e< ns:
+                left+= [[s,e]]
+                continue
+            if s> ne:
+                right+= [[s,e]]
+                continue
+            ns= min(s, ns)
+            ne= max(e, ne)
+        return left+[[ns, ne]]+right
 
 
 
