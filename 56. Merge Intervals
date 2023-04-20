@@ -1,0 +1,21 @@
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        
+        intervals.sort(key=lambda x:x[0])
+        ns, ne = intervals[0]
+        res = [intervals[0]]
+        # res = []
+        for a, b in intervals[1:] :
+            
+            if ne >= a:
+                ns = min(ns, a)
+                ne = max(ne, b)
+                res[-1][1] = ne
+                
+            else:
+                
+                res.append([a, b])
+                ne = b
+                ns = a
+        
+        return res
