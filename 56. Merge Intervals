@@ -19,3 +19,32 @@ class Solution:
                 ns = a
         
         return res
+
+
+
+
+
+
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        intervals.sort()
+        res = []   
+        [s, e] = intervals[0]
+
+        for i in range (1, len(intervals)):
+            [a, b]=intervals[i]
+            if a> e:
+                res.append([s,e])
+                s=a
+                e=b
+                continue
+                
+            elif b < s:
+                res.append([a,b])
+                continue
+
+            else:
+                s= min(a, s)
+                e = max(e, b)
+        res.append([s,e])
+        return res
