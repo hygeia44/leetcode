@@ -1,0 +1,23 @@
+class Solution(object):
+    def eraseOverlapIntervals(self, intervals):
+        """
+        :type intervals: List[List[int]]
+        :rtype: int
+        """
+        res = 0
+        intervals.sort()
+
+        cs = intervals[0][0]
+        ce = intervals[0][1]
+
+        for i in range(1,len(intervals)):
+            [s,e] = intervals[i]
+            if ce > s:
+                res+=1
+                # remove the interval with larger end, greedy method to reduce the chance of overlaping.
+                ce= min(ce, e)
+                continue
+            cs=s
+            ce=e
+        
+        return res
